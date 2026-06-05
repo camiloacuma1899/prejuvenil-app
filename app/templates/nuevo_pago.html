@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Nuevo Pago</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <!-- HEADER -->
+
+    <div class="card-modern p-4 mb-4">
+
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+
+            <div>
+
+                <span class="section-badge">
+
+                    💳 Finanzas
+
+                </span>
+
+                <h1 class="page-title mt-3 mb-2">
+
+                    Registrar Pago
+
+                </h1>
+
+                <p class="text-muted mb-0">
+
+                    Registro de pagos y control financiero del grupo
+
+                </p>
+
+            </div>
+
+            <a href="{{ url_for('main.lista_pagos') }}"
+               class="finance-btn-secondary">
+
+                ← Volver
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- FORMULARIO -->
+
+    <div class="card-modern p-4 p-lg-5">
+
+        <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+            <!-- DATOS PRINCIPALES -->
+
+            <div class="form-section">
+
+                <div class="section-header">
+
+                    <div class="section-icon">
+
+                        💰
+
+                    </div>
+
+                    <div>
+
+                        <h4 class="section-title-modern">
+
+                            Información del Pago
+
+                        </h4>
+
+                        <p class="section-subtitle">
+
+                            Datos principales del movimiento financiero
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- INTEGRANTE -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            {{ form.integrante_id.label.text }}
+
+                        </label>
+
+                        {{ form.integrante_id(
+
+                            class="form-select modern-input"
+
+                        ) }}
+
+                    </div>
+
+                    <!-- CONCEPTO -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            {{ form.concepto.label.text }}
+
+                        </label>
+
+                        {{ form.concepto(
+
+                            class="form-select modern-input",
+
+                            id="concepto"
+
+                        ) }}
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- VALOR -->
+
+                    <div class="col-md-4 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            {{ form.valor.label.text }}
+
+                        </label>
+
+                        {{ form.valor(
+
+                            class="form-control modern-input",
+
+                            id="valor",
+
+                            placeholder="$ Valor"
+
+                        ) }}
+
+                    </div>
+
+                    <!-- FECHA -->
+
+                    <div class="col-md-4 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            {{ form.fecha.label.text }}
+
+                        </label>
+
+                        {{ form.fecha(
+
+                            class="form-control modern-input"
+
+                        ) }}
+
+                    </div>
+
+                    <!-- ESTADO -->
+
+                    <div class="col-md-4 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            {{ form.estado.label.text }}
+
+                        </label>
+
+                        {{ form.estado(
+
+                            class="form-select modern-input"
+
+                        ) }}
+
+                    </div>
+
+                </div>
+
+                <!-- OBSERVACION -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+
+                        {{ form.observacion.label.text }}
+
+                    </label>
+
+                    {{ form.observacion(
+
+                        class="form-control modern-input",
+
+                        rows="4",
+
+                        placeholder="Observaciones adicionales..."
+
+                    ) }}
+
+                </div>
+
+            </div>
+
+            <!-- BOTONES -->
+
+            <div class="form-actions">
+
+                <button type="submit"
+                        class="primary-action-btn">
+
+                    <span class="action-icon">
+
+                        💾
+
+                    </span>
+
+                    Guardar Pago
+
+                </button>
+
+                <a href="{{ url_for('main.lista_pagos') }}"
+                   class="secondary-action-btn">
+
+                    <span class="action-icon">
+
+                        ✖
+
+                    </span>
+
+                    Cancelar
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function(){
+
+        const concepto =
+            document.getElementById(
+                'concepto'
+            )
+
+        const valor =
+            document.getElementById(
+                'valor'
+            )
+
+        concepto.addEventListener(
+            'change',
+            function(){
+
+                fetch(
+                    '/concepto/' +
+                    this.value
+                )
+
+                .then(
+                    response =>
+                    response.json()
+                )
+
+                .then(
+                    data => {
+
+                        valor.value =
+                            data.valor
+
+                    }
+                )
+
+            }
+        )
+
+    }
+)
+
+</script>
+
+</body>
+
+</html>

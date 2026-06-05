@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+
+    Grupo Prejuvenil San Carlo Acutis
+
+</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="{{ url_for(
+      'static',
+      filename='bootstrap-icons/bootstrap-icons.css'
+      ) }}">
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+
+</head>
+
+<body>
+
+<div class="container-fluid p-4">
+
+
+<!-- CABECERA -->
+
+<div class="card-modern p-4 mb-4">
+
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+
+        <!-- TITULO -->
+
+        <div>
+
+            <h1 class="page-title mb-1">
+
+                Grupo Prejuvenil San Carlo Acutis
+
+            </h1>
+
+            <p class="text-muted mb-0">
+
+                Sistema de gestión del grupo juvenil
+
+            </p>
+
+        </div>
+
+        <!-- BOTONES -->
+
+        <div class="top-menu">
+
+    {% if current_user.rol == 'coordinador' %}
+
+    <a href="{{ url_for('main.usuarios') }}"
+       class="menu-btn">
+
+        <span class="menu-icon">
+
+            👥
+
+        </span>
+
+        Usuarios
+
+    </a>
+
+    <a href="{{ url_for('main.nuevo_integrante') }}"
+       class="menu-btn">
+
+        <span class="menu-icon">
+
+            ➕
+
+        </span>
+
+        Integrante
+
+    </a>
+
+    <a href="{{ url_for('main.lista_pagos') }}"
+       class="menu-btn">
+
+        <span class="menu-icon">
+
+            💳
+
+        </span>
+
+        Pagos
+
+    </a>
+
+    <a href="{{ url_for('main.conceptos') }}"
+       class="menu-btn">
+
+        <span class="menu-icon">
+
+            🏷️
+
+        </span>
+
+        Conceptos
+
+    </a>
+
+    {% endif %}
+
+    <a href="{{ url_for('main.encuentros') }}"
+       class="menu-btn">
+
+        <span class="menu-icon">
+
+            📅
+
+        </span>
+
+        Encuentros
+
+    </a>
+
+    <a href="{{ url_for('main.dashboard') }}"
+       class="menu-btn">
+
+        <span class="menu-icon">
+
+            📊
+
+        </span>
+
+        Dashboard
+
+    </a>
+
+    <a href="{{ url_for('main.galeria') }}"
+       class="menu-btn">
+
+        <span class="menu-icon">
+
+            🖼️
+
+        </span>
+
+        Galería
+
+    </a>
+
+    <a href="{{ url_for('main.logout') }}"
+       class="menu-btn logout-btn">
+
+        <span class="menu-icon">
+
+            ↩️
+
+        </span>
+
+        Salir
+
+    </a>
+
+</div>
+
+</div>
+
+<!-- CONTENIDO PRINCIPAL -->
+
+<div class="card-modern p-4">
+
+    <div class="card-modern p-4 mb-4">
+
+    <!-- FILA SUPERIOR -->
+
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+
+        <!-- TITULO -->
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                Integrantes
+
+            </h2>
+
+            <p class="text-muted mb-0"
+               id="contadorIntegrantes">
+
+                {{ integrantes|length }} integrantes registrados
+
+            </p>
+
+        </div>
+
+        <!-- BUSCADOR -->
+
+        <div style="max-width:320px;width:100%;">
+
+            <div class="input-group">
+
+                <span class="input-group-text bg-white border-end-0">
+
+                    🔍
+
+                </span>
+
+                <input
+                    type="text"
+                    id="buscador"
+                    class="form-control border-start-0"
+                    placeholder="Buscar integrante..."
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FILTROS -->
+
+    <div class="d-flex gap-2 flex-wrap mt-4">
+
+        <button
+            class="btn filtro-btn filtro-activo"
+            data-rango="todos">
+
+            Todos
+
+        </button>
+
+        <button
+            class="btn filtro-btn"
+            data-rango="10-12">
+
+            10-12
+
+        </button>
+
+        <button
+            class="btn filtro-btn"
+            data-rango="13-15">
+
+            13-15
+
+        </button>
+
+        <button
+            class="btn filtro-btn"
+            data-rango="16-18">
+
+            16-18
+
+        </button>
+
+        <button
+            class="btn filtro-btn"
+            data-rango="19+">
+
+            19+
+
+        </button>
+
+    </div>
+
+</div>
+
+        <div class="input-group shadow-sm mb-3">
+
+    
+
+    
+
+    <div class="integrantes-grid"
+     id="tablaIntegrantes">
+
+    {% for integrante in integrantes %}
+
+    <div class="integrante-card-modern fila-integrante"
+         data-edad="{{ integrante.edad_calculada }}">
+
+        <!-- TOP -->
+
+        <div class="integrante-top">
+
+            <!-- FOTO -->
+
+            <div>
+
+                {% if integrante.foto %}
+
+                <img src="{{ url_for('static', filename='uploads/' + integrante.foto) }}"
+                     class="integrante-avatar">
+
+                {% else %}
+
+                <div class="integrante-avatar-placeholder">
+
+                    👤
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            <!-- INFO -->
+
+            <div class="flex-grow-1">
+
+                <h4 class="integrante-name">
+
+                    {{ integrante.nombre }}
+
+                </h4>
+
+                <div class="integrante-subinfo">
+
+                    Integrante activo
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- BADGES -->
+
+        <div class="integrante-badges">
+
+            <span class="integrante-age">
+
+                🎂 {{ integrante.edad_calculada }} años
+
+            </span>
+
+        </div>
+
+        <!-- DATOS -->
+
+        <div class="integrante-data">
+
+            <div class="integrante-data-item">
+
+                📞 {{ integrante.telefono }}
+
+            </div>
+
+            <div class="integrante-data-item">
+
+                👨‍👩‍👧 {{ integrante.nombre_acudiente }}
+
+            </div>
+
+        </div>
+
+        <!-- ACCIONES -->
+
+        <div class="integrante-actions">
+
+            <!-- VER -->
+
+            <a href="{{ url_for('main.ver_integrante', id=integrante.id) }}"
+               class="action-circle blue">
+
+                👁
+
+            </a>
+
+            {% if current_user.rol == 'coordinador' %}
+
+            <!-- EDITAR -->
+
+            <a href="{{ url_for('main.editar_integrante', id=integrante.id) }}"
+               class="action-circle yellow">
+
+                ✏️
+
+            </a>
+
+            <!-- ELIMINAR -->
+
+            <a href="{{ url_for('main.eliminar_integrante', id=integrante.id) }}"
+               class="action-circle red"
+               onclick="return confirm('¿Eliminar integrante?')">
+
+                🗑
+
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</div>
+
+<!-- ULTIMOS MOMENTOS -->
+
+<div class="card-modern p-4 mt-4">
+
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+
+    <div>
+
+        <h3 class="fw-bold mb-1">
+
+            📸 Últimos Momentos
+
+        </h3>
+
+        <p class="text-muted mb-0">
+
+            Recuerdos y actividades recientes del grupo
+
+        </p>
+
+    </div>
+
+    <a href="{{ url_for('main.galeria') }}"
+       class="btn btn-primary rounded-pill px-4">
+
+        <i class="bi bi-images"></i>
+
+        Ver Galería
+
+    </a>
+
+</div>
+
+    <div class="row">
+
+        {% for foto in fotos_recientes %}
+
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6 mb-4">
+            <a href="{{ url_for('main.ver_foto', id=foto.id) }}">
+
+               <img src="{{ url_for('static', filename='galeria/' + foto.archivo) }}"
+     class="img-fluid rounded-4 shadow-sm recent-photo">
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+</div>
+
+<script>
+
+const buscador =
+document.getElementById(
+    'buscador'
+);
+
+const filas =
+document.querySelectorAll(
+    '.fila-integrante'
+);
+
+const contador =
+document.getElementById(
+    'contadorIntegrantes'
+);
+
+const filtros =
+document.querySelectorAll(
+    '.filtro-btn'
+);
+
+let filtroActual =
+'todos';
+
+function actualizarTabla(){
+
+    let texto =
+    buscador.value.toLowerCase();
+
+    let visibles = 0;
+
+    filas.forEach(fila => {
+
+        let contenido =
+        fila.innerText.toLowerCase();
+
+        let edad =
+        parseInt(
+            fila.dataset.edad
+        );
+
+        let coincideBusqueda =
+        contenido.includes(texto);
+
+        let coincideEdad =
+        true;
+
+        if(
+            filtroActual === '10-12'
+        ){
+
+            coincideEdad =
+            edad >= 10 &&
+            edad <= 12;
+
+        }
+
+        else if(
+            filtroActual === '13-15'
+        ){
+
+            coincideEdad =
+            edad >= 13 &&
+            edad <= 15;
+
+        }
+
+        else if(
+            filtroActual === '16-18'
+        ){
+
+            coincideEdad =
+            edad >= 16 &&
+            edad <= 18;
+
+        }
+
+        else if(
+            filtroActual === '19+'
+        ){
+
+            coincideEdad =
+            edad >= 19;
+
+        }
+
+        if(
+            coincideBusqueda &&
+            coincideEdad
+        ){
+
+            fila.style.display = '';
+
+            visibles++;
+
+        }
+
+        else{
+
+            fila.style.display =
+            'none';
+
+        }
+
+    });
+
+    contador.innerHTML =
+    visibles +
+    ' integrantes';
+
+}
+
+buscador.addEventListener(
+    'keyup',
+    actualizarTabla
+);
+
+filtros.forEach(btn => {
+
+    btn.addEventListener(
+        'click',
+        function(){
+
+            filtroActual =
+            this.dataset.rango;
+
+            // LIMPIAR ACTIVOS
+
+            filtros.forEach(b => {
+
+                b.classList.remove(
+                    'filtro-activo'
+                )
+
+            })
+
+            // ACTIVAR ACTUAL
+
+            this.classList.add(
+                'filtro-activo'
+            )
+
+            actualizarTabla();
+
+        }
+    );
+
+});
+
+</script>
+
+</body>
+
+</html>

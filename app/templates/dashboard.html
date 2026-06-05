@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container-fluid p-4">
+
+    <div class="card-modern p-4 mb-4">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+<div class="card-modern p-4 mb-4">
+
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+
+        <div>
+
+            <h1 class="page-title mb-1">
+
+                Dashboard General
+
+            </h1>
+
+            <p class="text-muted mb-0">
+
+                Resumen general del grupo prejuvenil
+
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('main.inicio') }}"
+           class="btn btn-outline-secondary rounded-pill px-4">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Volver al Inicio
+
+        </a>
+
+    </div>
+
+</div>
+
+                <p class="text-muted mb-0">
+
+                    Resumen general del grupo
+
+                </p>
+
+            </div>
+
+            <a href="/"
+               class="btn btn-modern btn-gris">
+
+                <i class="bi bi-arrow-left"></i>
+                Volver
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="stat-card shadow-lg"
+                 style="background:linear-gradient(135deg,#ff4d6d,#e63946);">
+
+                <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                    <i class="bi bi-people-fill"></i>
+                    Integrantes
+
+                <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                <h2 class="fw-bold display-5">
+
+                    {{ total_integrantes }}
+
+                <h2 class="fw-bold display-5">
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="stat-card shadow-lg"
+                 style="background:linear-gradient(135deg,#4f8cff,#2563eb);">
+
+                <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                    <i class="bi bi-calendar-event"></i>
+                    Encuentros
+
+                <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                <h2 class="fw-bold display-5">
+
+                    {{ total_encuentros }}
+
+                <h2 class="fw-bold display-5">
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="stat-card shadow-lg"
+                 style="background:linear-gradient(135deg,#34d399,#10b981);">
+
+                <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                    <i class="bi bi-check-circle-fill"></i>
+                    Asistencias
+
+                <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                <h2 class="fw-bold display-5">
+
+                    {{ total_asistencias }}
+
+                <h2 class="fw-bold display-5">
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="stat-card shadow-lg"
+                 style="background:linear-gradient(135deg,#6b7280,#374151);">
+
+                <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                    <i class="bi bi-x-circle-fill"></i>
+                    Fallas
+
+                <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                <h2 class="fw-bold display-5">
+
+                    {{ total_fallas }}
+
+                <h2 class="fw-bold display-5">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CUMPLEAÑOS -->
+
+    <div class="card-modern p-4 mt-3">
+
+        <h3 class="mb-4">
+
+            🎂 Cumpleaños del Mes
+
+        </h3>
+
+        {% if cumpleaneros_mes %}
+
+            <div class="row">
+
+                {% for integrante in cumpleaneros_mes %}
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="card border-0 shadow-sm">
+
+                        <div class="card-body">
+
+                            <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                                {{ integrante.nombre }}
+
+                            <h6 class="text-uppercase fw-bold opacity-75 mb-3">
+
+                            <p class="mb-0 text-muted">
+
+                                {{ integrante.fecha_nacimiento.strftime('%d/%m') }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-info">
+
+                No hay cumpleaños registrados este mes.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- RANKINGS -->
+
+<div class="row mt-4">
+
+    <!-- TOP ASISTENTES -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card-modern p-4">
+
+            <h3 class="mb-4">
+
+                🏆 Top Asistentes
+
+            </h3>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Asistencias</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for persona in ranking_asistencia %}
+
+                        <tr>
+
+                            <td>
+
+                                {{ loop.index }}
+
+                            </td>
+
+                            <td>
+
+                                {{ persona.nombre }}
+
+                            </td>
+
+                            <td>
+
+                                <span class="badge bg-success">
+
+                                    {{ persona.total }}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MAS AUSENTES -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card-modern p-4">
+
+            <h3 class="mb-4">
+
+                ⚠️ Más Ausentes
+
+            </h3>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Fallas</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for persona in ranking_fallas %}
+
+                        <tr>
+
+                            <td>
+
+                                {{ loop.index }}
+
+                            </td>
+
+                            <td>
+
+                                {{ persona.nombre }}
+
+                            </td>
+
+                            <td>
+
+                                <span class="badge bg-danger">
+
+                                    {{ persona.total }}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ALERTAS DE AUSENCIA -->
+
+<div class="card-modern p-4 mt-4">
+
+    <h3 class="mb-4">
+        🚨 Alertas de Seguimiento
+    </h3>
+
+    {% if integrantes_alerta %}
+
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+                        <th>Integrante</th>
+                        <th>Fallas</th>
+                        <th>Estado</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for integrante in integrantes_alerta %}
+
+                    <tr>
+
+                        <td>{{ integrante.nombre }}</td>
+
+                        <td>{{ integrante.fallas }}</td>
+
+                        <td>
+
+                            <span class="badge bg-danger">
+                                Requiere seguimiento
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <div class="alert alert-success">
+
+            🎉 No hay integrantes con 3 o más ausencias.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>

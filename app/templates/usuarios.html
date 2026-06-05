@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Usuarios</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <!-- HEADER -->
+
+    <div class="card-modern p-4 mb-4">
+
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+
+            <div>
+
+                <span class="section-badge">
+
+                    👥 Administración
+
+                </span>
+
+                <h1 class="page-title mt-3 mb-2">
+
+                    Usuarios del Sistema
+
+                </h1>
+
+                <p class="text-muted mb-0">
+
+                    Gestión de accesos y roles del sistema prejuvenil
+
+                </p>
+
+            </div>
+
+            <div class="d-flex gap-3 flex-wrap">
+
+                <a href="{{ url_for('main.inicio') }}"
+                   class="finance-btn-secondary">
+
+                    ← Inicio
+
+                </a>
+
+                <a href="{{ url_for('main.nuevo_usuario') }}"
+                   class="finance-btn-primary">
+
+                    ➕ Nuevo Usuario
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ESTADISTICAS -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-6 mb-3">
+
+            <div class="finance-stat-card">
+
+                <div class="finance-icon">
+
+                    👤
+
+                </div>
+
+                <div>
+
+                    <small class="text-muted">
+
+                        Total Usuarios
+
+                    </small>
+
+                    <h3 class="mb-0">
+
+                        {{ usuarios|length }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+            <div class="finance-stat-card">
+
+                <div class="finance-icon success">
+
+                    🛡️
+
+                </div>
+
+                <div>
+
+                    <small class="text-muted">
+
+                        Coordinadores
+
+                    </small>
+
+                    <h3 class="mb-0">
+
+                        {{ usuarios|selectattr('rol', 'equalto', 'coordinador')|list|length }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TABLA -->
+
+    <div class="card-modern p-4">
+
+        <div class="table-responsive">
+
+            <table class="table modern-payments-table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for usuario in usuarios %}
+
+                    <tr>
+
+                        <!-- USUARIO -->
+
+                        <td>
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <div class="user-avatar">
+
+                                    👤
+
+                                </div>
+
+                                <div>
+
+                                    <div class="fw-bold">
+
+                                        {{ usuario.username }}
+
+                                    </div>
+
+                                    <small class="text-muted">
+
+                                        Usuario del sistema
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <!-- ROL -->
+
+                        <td>
+
+                            {% if usuario.rol == 'coordinador' %}
+
+                                <span class="payment-badge danger">
+
+                                    🛡️ Coordinador
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="payment-badge success">
+
+                                    ✨ Joven
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <!-- ESTADO -->
+
+                        <td>
+
+                            <span class="payment-badge success">
+
+                                ● Activo
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

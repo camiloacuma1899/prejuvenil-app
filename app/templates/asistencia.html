@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Asistencia</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <!-- HEADER -->
+
+    <div class="card-modern p-4 mb-4">
+
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+
+            <div>
+
+                <span class="section-badge">
+
+                    📅 Encuentros
+
+                </span>
+
+                <h1 class="page-title mt-3 mb-2">
+
+                    Control de Asistencia
+
+                </h1>
+
+                <p class="text-muted mb-0">
+
+                    {{ encuentro.titulo }}
+
+                </p>
+
+            </div>
+
+            <a href="{{ url_for('main.ver_encuentro', id=encuentro.id) }}"
+               class="finance-btn-secondary">
+
+                ← Volver
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- ESTADISTICAS -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-4 mb-3">
+
+            <div class="finance-stat-card">
+
+                <div class="finance-icon">
+
+                    👥
+
+                </div>
+
+                <div>
+
+                    <small class="text-muted">
+
+                        Total Integrantes
+
+                    </small>
+
+                    <h3 id="totalIntegrantes"
+                        class="mb-0">
+
+                        {{ integrantes|length }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="finance-stat-card">
+
+                <div class="finance-icon success">
+
+                    ✅
+
+                </div>
+
+                <div>
+
+                    <small class="text-muted">
+
+                        Asistiendo
+
+                    </small>
+
+                    <h3 id="contadorAsistencia"
+                        class="mb-0">
+
+                        0
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="finance-stat-card">
+
+                <div class="finance-icon warning">
+
+                    ⏳
+
+                </div>
+
+                <div>
+
+                    <small class="text-muted">
+
+                        Faltan
+
+                    </small>
+
+                    <h3 id="contadorFaltas"
+                        class="mb-0">
+
+                        {{ integrantes|length }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FORMULARIO -->
+
+    <form method="POST">
+
+        <div class="card-modern p-4">
+
+            <!-- HEADER TABLA -->
+
+            <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+
+                <div>
+
+                    <h3 class="mb-1">
+
+                        Lista de Asistencia
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Registro de asistencia del encuentro
+
+                    </p>
+
+                </div>
+
+                {% if current_user.rol == 'coordinador' %}
+
+                <button type="button"
+                        class="finance-btn-primary border-0"
+                        onclick="marcarTodos()">
+
+                    ✅ Marcar Todos
+
+                </button>
+
+                {% endif %}
+
+            </div>
+
+            <!-- TABLA -->
+
+            <div class="table-responsive">
+
+                <table class="table modern-payments-table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Integrante</th>
+                            <th>Asistencia</th>
+                            <th>Observación</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for integrante in integrantes %}
+
+                        <tr>
+
+                            <!-- NOMBRE -->
+
+                            <td>
+
+                                <div class="d-flex align-items-center gap-3">
+
+                                    <div class="user-avatar">
+
+                                        👤
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="fw-bold">
+
+                                            {{ integrante.nombre }}
+
+                                        </div>
+
+                                        <small class="text-muted">
+
+                                            Integrante registrado
+
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <!-- SWITCH -->
+
+                            <td>
+
+                                <div class="form-check form-switch">
+
+                                    <input class="form-check-input asistencia-check"
+                                           type="checkbox"
+                                           name="asistencia_{{ integrante.id }}"
+
+                                           {% if current_user.rol == 'joven' %}
+                                           disabled
+                                           {% endif %}
+
+                                           {% if integrante.id in asistencias_existentes
+                                                 and asistencias_existentes[integrante.id].asistio %}
+                                           checked
+                                           {% endif %}>
+
+                                </div>
+
+                            </td>
+
+                            <!-- OBS -->
+
+                            <td>
+
+                                <input type="text"
+                                       name="observacion_{{ integrante.id }}"
+                                       class="form-control modern-input"
+                                       placeholder="Observación opcional"
+
+                                       {% if current_user.rol == 'joven' %}
+                                       readonly
+                                       {% endif %}
+
+                                       value="{{ asistencias_existentes[integrante.id].observacion if integrante.id in asistencias_existentes else '' }}">
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- BOTONES -->
+
+            <div class="form-actions mt-4">
+
+                {% if current_user.rol == 'coordinador' %}
+
+                <button type="submit"
+                        class="primary-action-btn">
+
+                    <span class="action-icon">
+
+                        💾
+
+                    </span>
+
+                    Guardar Asistencia
+
+                </button>
+
+                {% endif %}
+
+                <a href="{{ url_for('main.ver_encuentro', id=encuentro.id) }}"
+                   class="secondary-action-btn">
+
+                    <span class="action-icon">
+
+                        ←
+
+                    </span>
+
+                    Volver
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- JS -->
+
+<script>
+
+const checks = document.querySelectorAll(
+    '.asistencia-check'
+)
+
+const contadorAsistencia =
+    document.getElementById(
+        'contadorAsistencia'
+    )
+
+const contadorFaltas =
+    document.getElementById(
+        'contadorFaltas'
+    )
+
+const total =
+    checks.length
+
+function actualizarContadores(){
+
+    let activos = 0
+
+    checks.forEach(check => {
+
+        if(check.checked){
+
+            activos++
+
+        }
+
+    })
+
+    contadorAsistencia.innerText =
+        activos
+
+    contadorFaltas.innerText =
+        total - activos
+
+}
+
+checks.forEach(check => {
+
+    check.addEventListener(
+        'change',
+        actualizarContadores
+    )
+
+})
+
+function marcarTodos(){
+
+    checks.forEach(check => {
+
+        check.checked = true
+
+    })
+
+    actualizarContadores()
+
+}
+
+actualizarContadores()
+
+</script>
+
+</body>
+
+</html>
