@@ -1868,3 +1868,28 @@ body{
     height:74px;
 
 }
+
+.excel-btn{
+
+    background: linear-gradient(
+        135deg,
+        #16a34a,
+        #15803d
+    );
+
+    color: white !important;
+
+}
+
+.excel-btn:hover{
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 25px rgba(
+        22,
+        163,
+        74,
+        0.35
+    );
+
+}
