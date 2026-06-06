@@ -1893,3 +1893,259 @@ body{
     );
 
 }
+
+/* =========================================
+   RESPONSIVE PREMIUM MOBILE
+========================================= */
+
+@media(max-width:992px){
+
+    .top-menu{
+
+        justify-content:center;
+
+    }
+
+    .menu-btn{
+
+        flex:1 1 calc(50% - 12px);
+
+        justify-content:center;
+
+    }
+
+    .encuentro-hero{
+
+        padding:35px 25px;
+
+        text-align:center;
+
+    }
+
+    .encuentro-hero-title{
+
+        font-size:2rem;
+
+    }
+
+    .profile-hero{
+
+        padding:35px 25px;
+
+        text-align:center;
+
+    }
+
+    .profile-name{
+
+        font-size:2rem;
+
+    }
+
+    .profile-hero-image,
+    .profile-placeholder{
+
+        width:170px;
+
+        height:170px;
+
+        margin:auto;
+
+    }
+
+    .integrante-card-modern{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+    .integrante-data{
+
+        flex-direction:column;
+
+        gap:10px;
+
+        width:100%;
+
+    }
+
+    .integrante-actions{
+
+        width:100%;
+
+        justify-content:flex-end;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .page-title{
+
+        font-size:1.6rem;
+
+        text-align:center;
+
+    }
+
+    .card-modern{
+
+        border-radius:22px;
+
+        padding:20px;
+
+    }
+
+    .top-menu{
+
+        flex-direction:column;
+
+        width:100%;
+
+    }
+
+    .menu-btn{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+    .input-group{
+
+        width:100%;
+
+    }
+
+    .finance-stat-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .encounter-actions{
+
+        flex-direction:column;
+
+    }
+
+    .encounter-actions a{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+    .gallery-action-btn{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+    .form-actions{
+
+        flex-direction:column;
+
+    }
+
+    .primary-action-btn,
+    .secondary-action-btn{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+    .integrante-top{
+
+        width:100%;
+
+    }
+
+    .integrante-avatar,
+    .integrante-avatar-placeholder{
+
+        width:65px;
+
+        height:65px;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .container,
+    .container-fluid{
+
+        padding-left:12px !important;
+
+        padding-right:12px !important;
+
+    }
+
+    .page-title{
+
+        font-size:1.4rem;
+
+    }
+
+    .encuentro-hero-title{
+
+        font-size:1.6rem;
+
+    }
+
+    .profile-name{
+
+        font-size:1.6rem;
+
+    }
+
+    .stat-card h2{
+
+        font-size:1.7rem;
+
+    }
+
+    .integrante-card-modern{
+
+        padding:20px;
+
+    }
+
+    .integrante-name{
+
+        font-size:1rem;
+
+    }
+
+    .action-circle{
+
+        width:42px;
+
+        height:42px;
+
+    }
+
+    .table-responsive{
+
+        border-radius:18px;
+
+        overflow:auto;
+
+    }
+
+}
