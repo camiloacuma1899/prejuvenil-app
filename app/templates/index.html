@@ -4,7 +4,6 @@
 
 <head>
 
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -28,25 +27,25 @@
 <link rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}">
 
-
 </head>
 
 <body>
 
-<div class="container-fluid p-4">
+<div class="container-fluid py-3 px-2 px-md-4">
 
-
+<!-- ===================================== -->
 <!-- CABECERA -->
+<!-- ===================================== -->
 
 <div class="card-modern p-4 mb-4">
 
-    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+    <div class="d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-4">
 
         <!-- TITULO -->
 
-        <div>
+        <div class="text-center text-xl-start">
 
-            <h1 class="page-title mb-1">
+            <h1 class="page-title mb-2">
 
                 Grupo Prejuvenil San Carlo Acutis
 
@@ -60,151 +59,112 @@
 
         </div>
 
-        <!-- BOTONES -->
+        <!-- MENU -->
 
-        <div class="top-menu">
+        <div class="top-menu w-100">
 
-    {% if current_user.rol == 'coordinador' %}
+            {% if current_user.rol == 'coordinador' %}
 
-    <a href="{{ url_for('main.usuarios') }}"
-       class="menu-btn">
+            <a href="{{ url_for('main.usuarios') }}"
+               class="menu-btn">
 
-        <span class="menu-icon">
+                <span class="menu-icon">👥</span>
 
-            👥
+                Usuarios
 
-        </span>
+            </a>
 
-        Usuarios
+            <a href="{{ url_for('main.nuevo_integrante') }}"
+               class="menu-btn">
 
-    </a>
+                <span class="menu-icon">➕</span>
 
-    <a href="{{ url_for('main.nuevo_integrante') }}"
-       class="menu-btn">
+                Integrante
 
-        <span class="menu-icon">
+            </a>
 
-            ➕
+            <a href="{{ url_for('main.importar_excel') }}"
+               class="menu-btn excel-btn">
 
-        </span>
+                <span class="menu-icon">📥</span>
 
+                Excel
 
+            </a>
 
+            <a href="{{ url_for('main.lista_pagos') }}"
+               class="menu-btn">
 
-        Integrante
+                <span class="menu-icon">💳</span>
 
-    </a>
+                Pagos
 
-    <a href="{{ url_for('main.importar_excel') }}"
-   class="menu-btn excel-btn">
+            </a>
 
-    <span class="menu-icon">
+            <a href="{{ url_for('main.conceptos') }}"
+               class="menu-btn">
 
-        📥
+                <span class="menu-icon">🏷️</span>
 
-    </span>
+                Conceptos
 
-    Importar Excel
+            </a>
 
-</a>
+            {% endif %}
 
-    <a href="{{ url_for('main.lista_pagos') }}"
-       class="menu-btn">
+            <a href="{{ url_for('main.encuentros') }}"
+               class="menu-btn">
 
-        <span class="menu-icon">
+                <span class="menu-icon">📅</span>
 
-            💳
+                Encuentros
 
-        </span>
+            </a>
 
-        Pagos
+            <a href="{{ url_for('main.dashboard') }}"
+               class="menu-btn">
 
-    </a>
+                <span class="menu-icon">📊</span>
 
-    <a href="{{ url_for('main.conceptos') }}"
-       class="menu-btn">
+                Dashboard
 
-        <span class="menu-icon">
+            </a>
 
-            🏷️
+            <a href="{{ url_for('main.galeria') }}"
+               class="menu-btn">
 
-        </span>
+                <span class="menu-icon">🖼️</span>
 
-        Conceptos
+                Galería
 
-    </a>
+            </a>
 
-    {% endif %}
+            <a href="{{ url_for('main.logout') }}"
+               class="menu-btn logout-btn">
 
-    <a href="{{ url_for('main.encuentros') }}"
-       class="menu-btn">
+                <span class="menu-icon">↩️</span>
 
-        <span class="menu-icon">
+                Salir
 
-            📅
+            </a>
 
-        </span>
+        </div>
 
-        Encuentros
-
-    </a>
-
-    <a href="{{ url_for('main.dashboard') }}"
-       class="menu-btn">
-
-        <span class="menu-icon">
-
-            📊
-
-        </span>
-
-        Dashboard
-
-    </a>
-
-    <a href="{{ url_for('main.galeria') }}"
-       class="menu-btn">
-
-        <span class="menu-icon">
-
-            🖼️
-
-        </span>
-
-        Galería
-
-    </a>
-
-    <a href="{{ url_for('main.logout') }}"
-       class="menu-btn logout-btn">
-
-        <span class="menu-icon">
-
-            ↩️
-
-        </span>
-
-        Salir
-
-    </a>
+    </div>
 
 </div>
 
-</div>
+<!-- ===================================== -->
+<!-- INTEGRANTES -->
+<!-- ===================================== -->
 
-<!-- CONTENIDO PRINCIPAL -->
+<div class="card-modern p-3 p-md-4 mb-4">
 
-<div class="card-modern p-4">
+    <!-- TOP -->
 
-    <div class="card-modern p-4 mb-4">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
 
-    <!-- FILA SUPERIOR -->
-
-    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
-
-        <!-- TITULO -->
-
-        <div>
+        <div class="text-center text-lg-start">
 
             <h2 class="fw-bold mb-1">
 
@@ -223,9 +183,10 @@
 
         <!-- BUSCADOR -->
 
-        <div style="max-width:320px;width:100%;">
+        <div class="w-100"
+             style="max-width:350px;">
 
-            <div class="input-group">
+            <div class="input-group shadow-sm">
 
                 <span class="input-group-text bg-white border-end-0">
 
@@ -248,7 +209,7 @@
 
     <!-- FILTROS -->
 
-    <div class="d-flex gap-2 flex-wrap mt-4">
+    <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start mb-4">
 
         <button
             class="btn filtro-btn filtro-activo"
@@ -292,184 +253,174 @@
 
     </div>
 
-</div>
-
-        <div class="input-group shadow-sm mb-3">
-
-    
-
-    
+    <!-- LISTA -->
 
     <div class="integrantes-grid"
-     id="tablaIntegrantes">
+         id="tablaIntegrantes">
 
-    {% for integrante in integrantes %}
+        {% for integrante in integrantes %}
 
-    <div class="integrante-card-modern fila-integrante"
-         data-edad="{{ integrante.edad_calculada }}">
+        <div class="integrante-card-modern fila-integrante"
+             data-edad="{{ integrante.edad_calculada }}">
 
-        <!-- TOP -->
+            <!-- IZQUIERDA -->
 
-        <div class="integrante-top">
+            <div class="d-flex align-items-center gap-3 flex-grow-1 w-100">
 
-            <!-- FOTO -->
+                <!-- FOTO -->
 
-            <div>
+                <div>
 
-                {% if integrante.foto %}
+                    {% if integrante.foto %}
 
-                <img src="{{ url_for('static', filename='uploads/' + integrante.foto) }}"
-                     class="integrante-avatar">
+                    <img src="{{ url_for('static', filename='uploads/' + integrante.foto) }}"
+                         class="integrante-avatar">
 
-                {% else %}
+                    {% else %}
 
-                <div class="integrante-avatar-placeholder">
+                    <div class="integrante-avatar-placeholder">
 
-                    👤
+                        👤
+
+                    </div>
+
+                    {% endif %}
 
                 </div>
+
+                <!-- INFO -->
+
+                <div class="flex-grow-1">
+
+                    <h4 class="integrante-name mb-1">
+
+                        {{ integrante.nombre }}
+
+                    </h4>
+
+                    <div class="integrante-subinfo mb-2">
+
+                        Integrante activo
+
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <span class="integrante-age">
+
+                            🎂 {{ integrante.edad_calculada }} años
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- DATOS -->
+
+            <div class="integrante-data-mobile">
+
+                <div class="integrante-data-item">
+
+                    📞 {{ integrante.telefono }}
+
+                </div>
+
+                <div class="integrante-data-item">
+
+                    👨‍👩‍👧 {{ integrante.nombre_acudiente }}
+
+                </div>
+
+            </div>
+
+            <!-- ACCIONES -->
+
+            <div class="integrante-actions">
+
+                <a href="{{ url_for('main.ver_integrante', id=integrante.id) }}"
+                   class="action-circle blue">
+
+                    👁
+
+                </a>
+
+                {% if current_user.rol == 'coordinador' %}
+
+                <a href="{{ url_for('main.editar_integrante', id=integrante.id) }}"
+                   class="action-circle yellow">
+
+                    ✏️
+
+                </a>
+
+                <a href="{{ url_for('main.eliminar_integrante', id=integrante.id) }}"
+                   class="action-circle red"
+                   onclick="return confirm('¿Eliminar integrante?')">
+
+                    🗑
+
+                </a>
 
                 {% endif %}
 
             </div>
 
-            <!-- INFO -->
-
-            <div class="flex-grow-1">
-
-                <h4 class="integrante-name">
-
-                    {{ integrante.nombre }}
-
-                </h4>
-
-                <div class="integrante-subinfo">
-
-                    Integrante activo
-                </div>
-
-            </div>
-
         </div>
 
-        <!-- BADGES -->
-
-        <div class="integrante-badges">
-
-            <span class="integrante-age">
-
-                🎂 {{ integrante.edad_calculada }} años
-
-            </span>
-
-        </div>
-
-        <!-- DATOS -->
-
-        <div class="integrante-data">
-
-            <div class="integrante-data-item">
-
-                📞 {{ integrante.telefono }}
-
-            </div>
-
-            <div class="integrante-data-item">
-
-                👨‍👩‍👧 {{ integrante.nombre_acudiente }}
-
-            </div>
-
-        </div>
-
-        <!-- ACCIONES -->
-
-        <div class="integrante-actions">
-
-            <!-- VER -->
-
-            <a href="{{ url_for('main.ver_integrante', id=integrante.id) }}"
-               class="action-circle blue">
-
-                👁
-
-            </a>
-
-            {% if current_user.rol == 'coordinador' %}
-
-            <!-- EDITAR -->
-
-            <a href="{{ url_for('main.editar_integrante', id=integrante.id) }}"
-               class="action-circle yellow">
-
-                ✏️
-
-            </a>
-
-            <!-- ELIMINAR -->
-
-            <a href="{{ url_for('main.eliminar_integrante', id=integrante.id) }}"
-               class="action-circle red"
-               onclick="return confirm('¿Eliminar integrante?')">
-
-                🗑
-
-            </a>
-
-            {% endif %}
-
-        </div>
+        {% endfor %}
 
     </div>
 
-    {% endfor %}
-
 </div>
 
-</div>
+<!-- ===================================== -->
+<!-- GALERIA -->
+<!-- ===================================== -->
 
-<!-- ULTIMOS MOMENTOS -->
-
-<div class="card-modern p-4 mt-4">
+<div class="card-modern p-3 p-md-4">
 
     <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
 
-    <div>
+        <div class="text-center text-lg-start">
 
-        <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1">
 
-            📸 Últimos Momentos
+                📸 Últimos Momentos
 
-        </h3>
+            </h3>
 
-        <p class="text-muted mb-0">
+            <p class="text-muted mb-0">
 
-            Recuerdos y actividades recientes del grupo
+                Recuerdos y actividades recientes
 
-        </p>
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('main.galeria') }}"
+           class="btn btn-primary rounded-pill px-4">
+
+            <i class="bi bi-images"></i>
+
+            Ver Galería
+
+        </a>
 
     </div>
 
-    <a href="{{ url_for('main.galeria') }}"
-       class="btn btn-primary rounded-pill px-4">
-
-        <i class="bi bi-images"></i>
-
-        Ver Galería
-
-    </a>
-
-</div>
-
-    <div class="row">
+    <div class="row g-3">
 
         {% for foto in fotos_recientes %}
 
-        <div class="col-xl-2 col-lg-3 col-md-4 col-6 mb-4">
+        <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+
             <a href="{{ url_for('main.ver_foto', id=foto.id) }}">
 
-               <img src="{{ url_for('static', filename='galeria/' + foto.archivo) }}"
-     class="img-fluid rounded-4 shadow-sm recent-photo">
+                <img src="{{ url_for('static', filename='galeria/' + foto.archivo) }}"
+                     class="img-fluid rounded-4 shadow-sm recent-photo">
 
             </a>
 
@@ -481,8 +432,11 @@
 
 </div>
 
-
 </div>
+
+<!-- ===================================== -->
+<!-- SCRIPT -->
+<!-- ===================================== -->
 
 <script>
 
@@ -576,7 +530,8 @@ function actualizarTabla(){
             coincideEdad
         ){
 
-            fila.style.display = '';
+            fila.style.display =
+            'flex';
 
             visibles++;
 
@@ -611,8 +566,6 @@ filtros.forEach(btn => {
             filtroActual =
             this.dataset.rango;
 
-            // LIMPIAR ACTIVOS
-
             filtros.forEach(b => {
 
                 b.classList.remove(
@@ -620,8 +573,6 @@ filtros.forEach(btn => {
                 )
 
             })
-
-            // ACTIVAR ACTUAL
 
             this.classList.add(
                 'filtro-activo'
