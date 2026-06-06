@@ -67,6 +67,31 @@ def create_app():
 
     app.register_blueprint(main)
 
+    with app.app_context():
+
+        db.create_all()
+
+    from app.models.usuario import Usuario
+
+    from werkzeug.security import generate_password_hash
+
+    admin = Usuario.query.filter_by(
+        username='admin'
+    ).first()
+
+    if not admin:
+
+        nuevo_admin = Usuario(
+            username='admin',
+            password=generate_password_hash('1234'),
+            rol='coordinador'
+        )
+
+        db.session.add(nuevo_admin)
+
+        db.session.commit()
+
+
     return app
 
 
