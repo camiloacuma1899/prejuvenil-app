@@ -412,7 +412,6 @@ def editar_integrante(id):
     if form.validate_on_submit():
 
         integrante.nombre = form.nombre.data
-
         integrante.fecha_nacimiento = form.fecha_nacimiento.data
 
         hoy = date.today()
@@ -431,16 +430,14 @@ def editar_integrante(id):
         )
 
         integrante.telefono = form.telefono.data
-
         integrante.alergia = form.alergia.data
-
         integrante.acudiente = form.acudiente.data
-
         integrante.nombre_acudiente = form.nombre_acudiente.data
-
         integrante.telefono_acudiente = form.telefono_acudiente.data
 
         foto = form.foto.data
+
+        print("FOTO RECIBIDA:", foto)
 
         if foto and foto.filename != '':
 
@@ -449,9 +446,17 @@ def editar_integrante(id):
                 folder="integrantes"
             )
 
+            print("RESULTADO CLOUDINARY:")
+            print(resultado)
+
             integrante.foto = resultado["secure_url"]
 
+            print("URL GUARDADA:")
+            print(integrante.foto)
+
         db.session.commit()
+
+        print("COMMIT REALIZADO")
 
         return redirect(
             url_for('main.inicio')
