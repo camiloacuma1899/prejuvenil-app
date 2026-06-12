@@ -1515,3 +1515,19 @@ def nuevo_usuario():
     return render_template(
         'nuevo_usuario.html'
     )
+
+@main.route('/perfil')
+@login_required
+def perfil():
+
+    return render_template(
+        'perfil.html'
+    )
+
+@main.route('/cambiar-password')
+@login_required
+def cambiar_password():
+
+    return render_template(
+        'cambiar_password.html'
+    )
