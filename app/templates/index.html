@@ -425,24 +425,35 @@
 
     <div class="row g-3">
 
-        {% if foto.archivo.startswith('http') %}
+    {% for foto in fotos_recientes %}
 
-        <img src="{{ foto.archivo }}"
-        class="img-fluid rounded-4 shadow-sm recent-photo">
+    <div class="col-6 col-md-4 col-lg-3 col-xl-2">
 
-        {% else %}
+        <a href="{{ url_for('main.ver_foto', id=foto.id) }}">
 
-        <img src="{{ url_for('static', filename='galeria/' + foto.archivo) }}"
-        class="img-fluid rounded-4 shadow-sm recent-photo">
+            {% if foto.archivo.startswith('http') %}
+
+            <img src="{{ foto.archivo }}"
+                 class="img-fluid rounded-4 shadow-sm recent-photo">
+
+            {% else %}
+
+            <img src="{{ url_for('static', filename='galeria/' + foto.archivo) }}"
+                 class="img-fluid rounded-4 shadow-sm recent-photo">
 
             {% endif %}
 
+        </a>
+
     </div>
 
-</div>
+    {% endfor %}
 
 </div>
 
+</div>
+
+</div>
 <!-- ===================================== -->
 <!-- SCRIPT -->
 <!-- ===================================== -->
