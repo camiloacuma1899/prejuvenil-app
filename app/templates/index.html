@@ -159,14 +159,33 @@
 
          <div class="dropdown">
 
-    <button
-        class="menu-btn dropdown-toggle"
-        type="button"
-        data-bs-toggle="dropdown">
+   <button
+ class="menu-btn dropdown-toggle"
+ type="button"
+ data-bs-toggle="dropdown">
 
-        👤 {{ current_user.username }}
 
-    </button>
+{% if current_user.foto %}
+
+    <img src="{{ current_user.foto }}"
+         style="
+            width:38px;
+            height:38px;
+            border-radius:50%;
+            object-fit:cover;
+         ">
+
+{% else %}
+
+    👤
+
+{% endif %}
+
+{{ current_user.nombre_completo() or current_user.username }}
+
+
+</button>
+
 
     <ul class="dropdown-menu dropdown-menu-end">
 
