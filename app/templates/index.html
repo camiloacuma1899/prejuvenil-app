@@ -67,9 +67,10 @@
 
         </h1>
 
-        <p class="text-muted mb-0">
+        <p class="text-muted mb-0 fw-medium">
 
-            "Estar siempre unido a Jesús ese es mi proyecto de vida"
+            "Estar siempre unido a Jesús,
+            ese es mi proyecto de vida"
 
         </p>
 
@@ -218,6 +219,117 @@
 
 </div>
 
+
+<!-- DASHBOARD PREMIUM -->
+
+<div class="row g-4 mb-4">
+
+    <div class="col-6 col-lg-3">
+
+        <div class="stats-card">
+
+            <div class="stats-icon">
+
+                👥
+
+            </div>
+
+            <div class="stats-number">
+
+                {{ total_integrantes }}
+
+            </div>
+
+            <div class="stats-label">
+
+                Integrantes
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-6 col-lg-3">
+
+        <div class="stats-card">
+
+            <div class="stats-icon">
+
+                📅
+
+            </div>
+
+            <div class="stats-number">
+
+                {{ total_encuentros }}
+
+            </div>
+
+            <div class="stats-label">
+
+                Encuentros
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-6 col-lg-3">
+
+        <div class="stats-card">
+
+            <div class="stats-icon">
+
+                📸
+
+            </div>
+
+            <div class="stats-number">
+
+                {{ total_fotos }}
+
+            </div>
+
+            <div class="stats-label">
+
+                Fotos
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-6 col-lg-3">
+
+        <div class="stats-card stats-card-gold">
+
+            <div class="stats-icon">
+
+                💰
+
+            </div>
+
+            <div class="stats-number">
+
+                ${{ "{:,.0f}".format(total_recaudado) }}
+
+            </div>
+
+            <div class="stats-label">
+
+                Recaudado
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 <!-- ===================================== -->
 <!-- INTEGRANTES -->
 <!-- ===================================== -->
@@ -232,14 +344,14 @@
 
             <h2 class="fw-bold mb-1">
 
-                Integrantes
+            👥 Integrantes
 
             </h2>
 
             <p class="text-muted mb-0"
                id="contadorIntegrantes">
 
-                {{ integrantes|length }} integrantes registrados
+                {{ integrantes|length }} jóvenes registrados actualmente
 
             </p>
 

@@ -83,11 +83,44 @@ def inicio():
         Foto.fecha.desc()
     ).limit(6).all()
 
+    total_integrantes = len(
+        integrantes
+    )
+
+    total_encuentros = len(
+        encuentros
+    )
+
+    total_fotos = Foto.query.count()
+
+    total_pagos = Pago.query.count()
+
+    total_recaudado = db.session.query(
+        db.func.sum(
+            Pago.valor
+        )
+    ).scalar() or 0
+
     return render_template(
+
         'index.html',
+
         integrantes=integrantes,
+
         encuentros=encuentros,
-        fotos_recientes=fotos_recientes
+
+        fotos_recientes=fotos_recientes,
+
+        total_integrantes=total_integrantes,
+
+        total_encuentros=total_encuentros,
+
+        total_fotos=total_fotos,
+
+        total_pagos=total_pagos,
+
+        total_recaudado=total_recaudado
+
     )
 
 
