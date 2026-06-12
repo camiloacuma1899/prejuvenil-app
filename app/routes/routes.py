@@ -29,7 +29,7 @@ from werkzeug.security import (
     check_password_hash
 
 )
-
+from app.forms.cambiar_password_form import CambiarPasswordForm
 from app.models.usuario import Usuario
 from app.models.integrante import Integrante
 from app.models.encuentro import Encuentro
@@ -1405,6 +1405,53 @@ def logout():
     )
 
 @main.route('/crear-admin')
+
+@main.route(
+    '/cambiar-password',
+    methods=['GET', 'POST']
+)
+@login_required
+def cambiar_password():
+
+    form = CambiarPasswordForm()
+
+    if form.validate_on_submit():
+
+        if not check_password_hash(
+            current_user.password,
+            form.password_actual.data
+        ):
+
+            flash(
+                'La contraseña actual es incorrecta',
+                'danger'
+            )
+
+            return render_template(
+                'cambiar_password.html',
+                form=form
+            )
+
+        current_user.password = generate_password_hash(
+            form.password_nueva.data
+        )
+
+        db.session.commit()
+
+        flash(
+            'Contraseña actualizada correctamente',
+            'success'
+        )
+
+        return redirect(
+            url_for('main.perfil')
+        )
+
+    return render_template(
+        'cambiar_password.html',
+        form=form
+    )
+
 def crear_admin():
 
     existe = Usuario.query.filter_by(
