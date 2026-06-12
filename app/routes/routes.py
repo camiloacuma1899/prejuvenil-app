@@ -1057,11 +1057,6 @@ def ver_foto(id):
 
 @main.route('/foto/eliminar/<int:id>')
 @login_required
-@roles_requeridos(
-    'coordinador'
-)
-@main.route('/foto/eliminar/<int:id>')
-@login_required
 @roles_requeridos('coordinador')
 def eliminar_foto(id):
 
