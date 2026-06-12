@@ -40,83 +40,144 @@
 
                 <form method="POST">
 
-                    <div class="mb-4">
+    <div class="row">
 
-                        <label class="form-label fw-bold">
+        <div class="col-md-6 mb-4">
 
-                            Usuario
+            <label class="form-label fw-bold">
 
-                        </label>
+                Nombres
 
-                        <input type="text"
-                               name="username"
-                               class="form-control form-control-lg"
-                               required>
+            </label>
 
-                    </div>
+            <input type="text"
+                   name="nombres"
+                   class="form-control form-control-lg">
 
-                    <div class="mb-4">
+        </div>
 
-                        <label class="form-label fw-bold">
+        <div class="col-md-6 mb-4">
 
-                            Contraseña
+            <label class="form-label fw-bold">
 
-                        </label>
+                Apellidos
 
-                        <input type="password"
-                               name="password"
-                               class="form-control form-control-lg"
-                               required>
+            </label>
 
-                    </div>
+            <input type="text"
+                   name="apellidos"
+                   class="form-control form-control-lg">
 
-                    <div class="mb-4">
+        </div>
 
-                        <label class="form-label fw-bold">
+    </div>
 
-                            Rol
+    <div class="mb-4">
 
-                        </label>
+        <label class="form-label fw-bold">
 
-                        <select name="rol"
-                                class="form-select form-select-lg">
+            Correo Electrónico
 
-                            <option value="joven">
+        </label>
 
-                                Joven
+        <input type="email"
+               name="correo"
+               class="form-control form-control-lg">
 
-                            </option>
+    </div>
 
-                            <option value="coordinador">
+    <div class="mb-4">
 
-                                Coordinador
+        <label class="form-label fw-bold">
 
-                            </option>
+            Teléfono
 
-                        </select>
+        </label>
 
-                    </div>
+        <input type="text"
+               name="telefono"
+               class="form-control form-control-lg">
 
-                    <div class="d-flex gap-2">
+    </div>
 
-                        <a href="{{ url_for('main.usuarios') }}"
-                           class="btn btn-secondary">
+    <hr class="my-4">
 
-                            Cancelar
+    <div class="mb-4">
 
-                        </a>
+        <label class="form-label fw-bold">
 
-                        <button type="submit"
-                                class="btn btn-modern btn-rojo">
+            Usuario
 
-                            Crear Usuario
+        </label>
 
-                        </button>
+        <input type="text"
+               name="username"
+               class="form-control form-control-lg"
+               required>
 
-                    </div>
+    </div>
 
-                </form>
+    <div class="mb-4">
 
+        <label class="form-label fw-bold">
+
+            Contraseña
+
+        </label>
+
+        <input type="password"
+               name="password"
+               class="form-control form-control-lg"
+               required>
+
+    </div>
+
+    <div class="mb-4">
+
+        <label class="form-label fw-bold">
+
+            Rol
+
+        </label>
+
+        <select name="rol"
+                class="form-select form-select-lg">
+
+            <option value="joven">
+
+                Joven
+
+            </option>
+
+            <option value="coordinador">
+
+                Coordinador
+
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="d-flex gap-2">
+
+        <a href="{{ url_for('main.usuarios') }}"
+           class="btn btn-secondary">
+
+            Cancelar
+
+        </a>
+
+        <button type="submit"
+                class="btn btn-modern btn-rojo">
+
+            Crear Usuario
+
+        </button>
+
+    </div>
+
+</form>
             </div>
 
         </div>

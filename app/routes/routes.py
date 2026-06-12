@@ -47,6 +47,7 @@ from app.forms.encuentro_form import EncuentroForm
 from app.forms.importar_form import ImportarExcelForm
 from app.forms.pago_form import PagoForm
 from app.forms.foto_form import FotoForm
+from app.forms.perfil_form import PerfilForm
 from app.utils.decorators import (
     roles_requeridos
 )
@@ -1543,15 +1544,23 @@ def nuevo_usuario():
 
         usuario = Usuario(
 
-            username=username,
+    nombres=request.form.get('nombres'),
 
-            password=generate_password_hash(
-                password
-            ),
+    apellidos=request.form.get('apellidos'),
 
-            rol=rol
+    correo=request.form.get('correo'),
 
-        )
+    telefono=request.form.get('telefono'),
+
+    username=username,
+
+    password=generate_password_hash(
+        password
+    ),
+
+    rol=rol
+
+)
 
         db.session.add(usuario)
 
@@ -1574,5 +1583,65 @@ def nuevo_usuario():
 def perfil():
 
     return render_template(
-        'perfil.html'
+        'perfil.html',
+        usuario=current_user
+    )
+
+
+@main.route(
+    '/perfil/editar',
+    methods=['GET', 'POST']
+)
+@login_required
+def editar_perfil():
+
+    form = PerfilForm(
+        obj=current_user
+    )
+
+    if form.validate_on_submit():
+
+        current_user.nombres = (
+            form.nombres.data
+        )
+
+        current_user.apellidos = (
+            form.apellidos.data
+        )
+
+        current_user.correo = (
+            form.correo.data
+        )
+
+        current_user.telefono = (
+            form.telefono.data
+        )
+
+        foto = form.foto.data
+
+        if foto and foto.filename != '':
+
+            resultado = cloudinary.uploader.upload(
+                foto,
+                folder="usuarios"
+            )
+
+            current_user.foto = (
+                resultado["secure_url"]
+            )
+
+        db.session.commit()
+
+        flash(
+            'Perfil actualizado correctamente',
+            'success'
+        )
+
+        return redirect(
+            url_for('main.perfil')
+        )
+
+    return render_template(
+        'editar_perfil.html',
+        form=form
     )

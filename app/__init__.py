@@ -83,22 +83,27 @@ def create_app():
 
         db.create_all()
 
-        admin = Usuario.query.filter_by(
+        try:
+
+            admin = Usuario.query.filter_by(
             username='admin'
-        ).first()
+            ).first()
 
-        if not admin:
+            if not admin:
 
-            nuevo_admin = Usuario(
+                nuevo_admin = Usuario(
                 username='admin',
                 password=generate_password_hash('1234'),
                 rol='coordinador'
             )
 
-            db.session.add(nuevo_admin)
+                db.session.add(nuevo_admin)
 
-            db.session.commit()
+                db.session.commit()
 
+        except Exception as e:
+
+            print(f"Error inicializando admin: {e}")
 
     return app
 
