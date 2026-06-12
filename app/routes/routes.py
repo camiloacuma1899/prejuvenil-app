@@ -53,6 +53,7 @@ from app.utils.decorators import (
 
 import os
 import pandas as pd
+import cloudinary.uploader
 
 from datetime import date
 from werkzeug.utils import secure_filename

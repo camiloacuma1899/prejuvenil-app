@@ -1,4 +1,5 @@
 from flask import Flask
+import cloudinary
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -27,6 +28,10 @@ login_manager.login_message_category = 'warning'
 def create_app():
 
     app = Flask(__name__)
+
+    cloudinary.config(
+    secure=True
+)
 
     app.config['SECRET_KEY'] = 'san-carlo-acutis'
 
