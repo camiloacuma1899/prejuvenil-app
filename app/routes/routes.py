@@ -1410,7 +1410,13 @@ def logout():
     '/cambiar-password',
     methods=['GET', 'POST']
 )
+
+@main.route(
+    '/cambiar-password',
+    methods=['GET', 'POST']
+)
 @login_required
+
 def cambiar_password():
 
     form = CambiarPasswordForm()
@@ -1569,12 +1575,4 @@ def perfil():
 
     return render_template(
         'perfil.html'
-    )
-
-@main.route('/cambiar-password')
-@login_required
-def cambiar_password():
-
-    return render_template(
-        'cambiar_password.html'
     )
