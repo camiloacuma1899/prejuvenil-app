@@ -332,20 +332,16 @@ def nuevo_integrante():
 
         nombre_foto = None
 
-        foto = form.foto.data
+    foto = form.foto.data
 
-        if foto and foto.filename != '':
+    if foto and foto.filename != '':
 
-            nombre_foto = secure_filename(
-                foto.filename
-            )
+        resultado = cloudinary.uploader.upload(
+        foto,
+        folder="integrantes"
+    )
 
-            ruta = os.path.join(
-                current_app.config['UPLOAD_FOLDER'],
-                nombre_foto
-            )
-
-            foto.save(ruta)
+        nombre_foto = resultado["secure_url"]
 
         hoy = date.today()
 
@@ -446,21 +442,14 @@ def editar_integrante(id):
 
         foto = form.foto.data
 
-        if foto and foto.filename != '':
+    if foto and foto.filename != '':
 
-            nombre_foto = secure_filename(
-                foto.filename
-            )
+        resultado = cloudinary.uploader.upload(
+        foto,
+        folder="integrantes"
+    )
 
-            ruta = os.path.join(
-                current_app.config['UPLOAD_FOLDER'],
-                nombre_foto
-            )
-
-            foto.save(ruta)
-
-            integrante.foto = nombre_foto
-
+        integrante.foto = resultado["secure_url"]
         db.session.commit()
 
         return redirect(
