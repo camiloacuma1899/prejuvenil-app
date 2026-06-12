@@ -53,6 +53,7 @@ from app.utils.decorators import (
 
 import os
 import pandas as pd
+import cloudinary
 import cloudinary.uploader
 
 from datetime import date
@@ -1014,6 +1015,8 @@ def galeria():
 @roles_requeridos(
     'coordinador'
 )
+
+
 def subir_foto():
 
     form = FotoForm()
@@ -1022,29 +1025,17 @@ def subir_foto():
 
         archivo = form.archivo.data
 
-        nombre_archivo = secure_filename(
-            archivo.filename
+        resultado = cloudinary.uploader.upload(
+            archivo,
+            folder="galeria"
         )
-
-        ruta = os.path.join(
-            current_app.root_path,
-            'static',
-            'galeria',
-            nombre_archivo
-        )
-
-        archivo.save(ruta)
 
         foto = Foto(
-
             titulo=form.titulo.data,
-
-            archivo=nombre_archivo
-
+            archivo=resultado["secure_url"]
         )
 
         db.session.add(foto)
-
         db.session.commit()
 
         return redirect(
@@ -1055,8 +1046,6 @@ def subir_foto():
         'subir_foto.html',
         form=form
     )
-
-@main.route('/foto/<int:id>')
 def ver_foto(id):
 
     foto = Foto.query.get_or_404(id)
@@ -1071,25 +1060,12 @@ def ver_foto(id):
 @roles_requeridos(
     'coordinador'
 )
+@main.route('/foto/eliminar/<int:id>')
+@login_required
+@roles_requeridos('coordinador')
 def eliminar_foto(id):
 
     foto = Foto.query.get_or_404(id)
-
-    ruta_archivo = os.path.join(
-
-        current_app.root_path,
-
-        'static',
-
-        'galeria',
-
-        foto.archivo
-
-    )
-
-    if os.path.exists(ruta_archivo):
-
-        os.remove(ruta_archivo)
 
     db.session.delete(foto)
 
@@ -1103,12 +1079,6 @@ def eliminar_foto(id):
         url_for('main.galeria')
     )
 
-@main.route('/pagos/nuevo', methods=['GET', 'POST'])
-@main.route('/pagos/nuevo', methods=['GET', 'POST'])
-@login_required
-@roles_requeridos(
-    'coordinador'
-)
 def nuevo_pago():
 
     form = PagoForm()
