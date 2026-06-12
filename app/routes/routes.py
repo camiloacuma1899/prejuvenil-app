@@ -1046,6 +1046,7 @@ def subir_foto():
         'subir_foto.html',
         form=form
     )
+@main.route('/foto/<int:id>')
 def ver_foto(id):
 
     foto = Foto.query.get_or_404(id)
