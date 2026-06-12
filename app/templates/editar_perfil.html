@@ -107,20 +107,27 @@
 
         </div>
 
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 flex-wrap">
 
-            <a href="{{ url_for('main.perfil') }}"
-               class="btn btn-secondary">
+    <a href="{{ url_for('main.inicio') }}"
+       class="btn btn-outline-secondary">
 
-                Cancelar
+        🏠 Inicio
 
-            </a>
+    </a>
 
-            {{ form.submit(
-                class="btn btn-primary"
-            ) }}
+    <a href="{{ url_for('main.perfil') }}"
+       class="btn btn-secondary">
 
-        </div>
+        Cancelar
+
+    </a>
+
+    {{ form.submit(
+        class="btn btn-primary"
+    ) }}
+
+</div>
 
     </form>
 
