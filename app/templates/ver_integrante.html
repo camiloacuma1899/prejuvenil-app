@@ -36,11 +36,9 @@
             <div class="col-lg-3 text-center mb-4 mb-lg-0">
 
                 {% if integrante.foto %}
-
-                <img src="{{ url_for('static', filename='uploads/' + integrante.foto) }}"
-                     class="profile-hero-image">
-
-                {% else %}
+                <img src="{{ integrante.foto }}"
+                class="integrante-avatar">
+            
 
                 <div class="profile-placeholder">
 

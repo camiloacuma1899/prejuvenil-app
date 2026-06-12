@@ -267,26 +267,38 @@
 
             <div class="d-flex align-items-center gap-3 flex-grow-1 w-100">
 
-                <!-- FOTO -->
+               
 
-                <div>
+               <!-- FOTO -->
 
-                    {% if integrante.foto %}
+<div>
 
-                    <img src="{{ url_for('static', filename='uploads/' + integrante.foto) }}"
-                         class="integrante-avatar">
+    {% if integrante.foto %}
 
-                    {% else %}
+        {% if integrante.foto.startswith('http') %}
 
-                    <div class="integrante-avatar-placeholder">
+            <img src="{{ integrante.foto }}"
+                 class="integrante-avatar">
 
-                        👤
+        {% else %}
 
-                    </div>
+            <img src="{{ url_for('static',
+                                 filename='uploads/' + integrante.foto) }}"
+                 class="integrante-avatar">
 
-                    {% endif %}
+        {% endif %}
 
-                </div>
+    {% else %}
+
+        <div class="integrante-avatar-placeholder">
+
+            👤
+
+        </div>
+
+    {% endif %}
+
+</div>
 
                 <!-- INFO -->
 
