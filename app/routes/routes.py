@@ -442,14 +442,15 @@ def editar_integrante(id):
 
         foto = form.foto.data
 
-    if foto and foto.filename != '':
+        if foto and foto.filename != '':
 
-        resultado = cloudinary.uploader.upload(
-        foto,
-        folder="integrantes"
-    )
+            resultado = cloudinary.uploader.upload(
+                foto,
+                folder="integrantes"
+            )
 
-        integrante.foto = resultado["secure_url"]
+            integrante.foto = resultado["secure_url"]
+
         db.session.commit()
 
         return redirect(
@@ -460,7 +461,6 @@ def editar_integrante(id):
         'nuevo_integrante.html',
         form=form
     )
-
 # =========================================
 # VER INTENGRANTE
 # =========================================
